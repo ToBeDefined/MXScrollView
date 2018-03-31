@@ -19,11 +19,9 @@
 @implementation MXPageControl
 
 - (instancetype)initWithFrame:(CGRect)frame
-              superViewHeight:(CGFloat)superViewHeight
-                        pages:(NSInteger)pages {
+              superViewHeight:(CGFloat)superViewHeight {
     self = [super initWithFrame:frame];
     if (self) {
-        self.numberOfPages = pages;
         self.userInteractionEnabled = NO;
         self.backgroundColor = [UIColor clearColor];
         self.currentPageIndicatorTintColor = KDEFAULT_PAGECONTROL_COLOR;

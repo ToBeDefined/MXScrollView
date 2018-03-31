@@ -12,8 +12,7 @@
 @interface MXPageControl : UIPageControl
 
 - (instancetype)initWithFrame:(CGRect)frame
-              superViewHeight:(CGFloat)superViewHeight
-                        pages:(NSInteger)pages;
+              superViewHeight:(CGFloat)superViewHeight;
 
 - (void)setPosition:(kMXPageControlPosition)pisition;
 

@@ -71,6 +71,7 @@
     _contentViews                   = [NSMutableArray array];
     [self initScrollView];
     [self initTimer];
+    [self initPageControl];
 }
 
 #pragma mark - property set
@@ -110,7 +111,7 @@
     }
     
     _currentView = _loopScroll ? _contentViews[1] : _contentViews.firstObject;
-    [self initPageControl];
+    _pageControl.numberOfPages = _loopScroll ? _contents.count - 2 : _contents.count;
 }
 
 - (void)setScrollDirection:(kMXScrollViewDirection)scrollDirection {
@@ -299,16 +300,16 @@
 }
 
 - (void)initPageControl {
-    if (_pageControl) [_pageControl removeFromSuperview];
-    NSInteger pageCount = _loopScroll ? _contents.count - 2 : _contents.count;
-    _pageControl = [[MXPageControl alloc] initWithFrame:CGRectMake(0,
-                                                                   _scrollViewHeight- kMXPageControlHeight,
-                                                                   _scrollViewWidth,
-                                                                   kMXPageControlHeight)
-                                        superViewHeight:_scrollViewHeight
-                                                  pages:pageCount];
+    if (!_pageControl) {
+        _pageControl = [[MXPageControl alloc] initWithFrame:CGRectMake(0,
+                                                                       _scrollViewHeight- kMXPageControlHeight,
+                                                                       _scrollViewWidth,
+                                                                       kMXPageControlHeight)
+                                            superViewHeight:_scrollViewHeight];
+        [self addSubview:_pageControl];
+    }
+    
     [_pageControl setPosition:_pageControlPosition];
-    [self addSubview:_pageControl];
 }
 
 
