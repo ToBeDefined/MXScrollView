@@ -11,7 +11,7 @@
 @implementation MXImageView
 
 - (instancetype)initWithFrame:(CGRect)frame
-                         hasTable:(BOOL)hasTable {
+                     hasTable:(BOOL)hasTable {
     self = [super initWithFrame:frame];
     if (self) {
         self.autoresizesSubviews = YES;

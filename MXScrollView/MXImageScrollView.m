@@ -81,8 +81,8 @@
     [self refreshViews:images];
     
     [_contents enumerateObjectsUsingBlock:^(id  _Nonnull obj,
-                                                NSUInteger idx,
-                                                BOOL * _Nonnull stop) {
+                                            NSUInteger idx,
+                                            BOOL * _Nonnull stop) {
         [self initViewWithObject:obj index:idx];
     }];
     
@@ -260,19 +260,19 @@
     switch (_scrollDirection) {
         case kMXScrollViewDirectionHorizontal:
             viewFrame = CGRectMake(index * _scrollViewWidth,
-                               0,
-                               _scrollViewWidth,
-                               _scrollViewHeight);
+                                   0,
+                                   _scrollViewWidth,
+                                   _scrollViewHeight);
             break;
         case kMXScrollViewDirectionVertical:
             viewFrame = CGRectMake(0,
-                                    index * _scrollViewHeight,
-                                    _scrollViewWidth,
-                                    _scrollViewHeight);
+                                   index * _scrollViewHeight,
+                                   _scrollViewWidth,
+                                   _scrollViewHeight);
         default:
             break;
     }
-
+    
     MXImageView *scrollImage = [[MXImageView alloc] initWithFrame:viewFrame
                                                          hasTable:_rootTableView != nil];
     [scrollImage setImageWithSource:object
@@ -381,10 +381,10 @@
     if (_loopScroll) {
         if (_scrollDirection == kMXScrollViewDirectionVertical &&
             _verticalDirection == kMXVerticalDirectionFromTop) {
-                [_contents addObject:views.firstObject];
-                for (NSInteger i = views.count -1; i>=0; i--) {
-                    [_contents addObject:views[i]];
-                }
+            [_contents addObject:views.firstObject];
+            for (NSInteger i = views.count -1; i>=0; i--) {
+                [_contents addObject:views[i]];
+            }
             [_contents addObject:views.lastObject];
         } else {
             [_contents addObject:views.lastObject];
@@ -405,15 +405,15 @@
     switch (_scrollDirection) {
         case kMXScrollViewDirectionHorizontal:
             _currentView.frame = CGRectMake(_currentView.frame.origin.x,
-                                             0,
-                                             CGRectGetWidth(frame),
-                                             CGRectGetHeight(frame));
+                                            0,
+                                            CGRectGetWidth(frame),
+                                            CGRectGetHeight(frame));
             break;
         case kMXScrollViewDirectionVertical:
             _currentView.frame = CGRectMake(0,
-                                             _currentView.frame.origin.y,
-                                             CGRectGetWidth(frame),
-                                             CGRectGetHeight(frame));
+                                            _currentView.frame.origin.y,
+                                            CGRectGetWidth(frame),
+                                            CGRectGetHeight(frame));
         default:
             break;
     }
@@ -425,7 +425,7 @@
                                index:(NSInteger)index {
     if ([self.delegate respondsToSelector:@selector(MXScrollView:viewForLeftAccessoryViewAtIndex:)]) {
         UIView *leftAccessoryView = [self.delegate MXScrollView:self
-                           viewForLeftAccessoryViewAtIndex:index];
+                                viewForLeftAccessoryViewAtIndex:index];
         if ([self.delegate respondsToSelector:@selector(MXScrollView:leftAccessoryViewAutoresizingMaskAtIndex:)]) {
             UIViewAutoresizing leftViewAutoresizingMark = [self.delegate MXScrollView:self
                                              leftAccessoryViewAutoresizingMaskAtIndex:index];
@@ -438,7 +438,7 @@
     
     if ([self.delegate respondsToSelector:@selector(MXScrollView:viewForRightAccessoryViewAtIndex:)]) {
         UIView *rightAccessoryView = [self.delegate MXScrollView:self
-                           viewForRightAccessoryViewAtIndex:index];
+                                viewForRightAccessoryViewAtIndex:index];
         if ([self.delegate respondsToSelector:@selector(MXScrollView:rightAccessoryViewAutoresizingMaskAtIndex:)]) {
             UIViewAutoresizing leftViewAutoresizingMark = [self.delegate MXScrollView:self
                                             rightAccessoryViewAutoresizingMaskAtIndex:index];
