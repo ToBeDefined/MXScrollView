@@ -7,7 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "MXEnumHeader.h"
+#import "MXScrollHeader.h"
 
 @interface MXTransaction : CATransaction
 

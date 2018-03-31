@@ -7,7 +7,6 @@
 //
 
 #import "MXImageView.h"
-#import "UIImageView+CMWebCache.h"
 
 @implementation MXImageView
 
@@ -29,14 +28,22 @@
 }
 
 - (void)setImageWithSource:(id)imageSource
-          placeholderImage:(UIImage *)placeholderImage {
+          placeholderImage:(UIImage *)placeholderImage
+     downloadImageFunction:(DownloadImageFunction _Nullable)downloadImageFunction {
     if ([imageSource isKindOfClass:[UIImage class]]) {
         self.image = (UIImage *)imageSource;
-    } else if ([imageSource isKindOfClass:[NSString class]]) {
-        [self CMSD_setImageWithURL:[NSURL URLWithString:(NSString *)imageSource]
-                  placeholderImage:placeholderImage];
+    } else {
+        NSURL *imageSourceURL;
+        self.image = placeholderImage;
+        if ([imageSource isKindOfClass:[NSString class]]) {
+            imageSourceURL = [NSURL URLWithString:(NSString *)imageSource];
+        } else if ([imageSource isKindOfClass:[NSURL class]]) {
+            imageSourceURL = (NSURL *)imageSource;
+        }
+        if (downloadImageFunction) {
+            downloadImageFunction(self, imageSourceURL);
+        }
     }
-
 }
 
 - (void)tapImageView:(UITapGestureRecognizer *)tap {

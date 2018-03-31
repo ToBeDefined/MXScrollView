@@ -6,8 +6,8 @@
 //  Copyright © 2016年 PRO. All rights reserved.
 //
 
-#ifndef MXEnumHeader_h
-#define MXEnumHeader_h
+#ifndef MXScrollHeader_h
+#define MXScrollHeader_h
 
 #import <Foundation/Foundation.h>
 
@@ -125,5 +125,9 @@ typedef NS_ENUM(NSInteger, kMXPageControlPosition) {
      */
     kMXPageControlPositionRight,
 };
+
+@class MXImageView;
+
+typedef void (^DownloadImageFunction)(MXImageView *imageView, NSURL *url);
 
 #endif /* MXScrollHeader_h */

@@ -1,8 +1,8 @@
 #import <UIKit/UIKit.h>
-#import "MXEnumHeader.h"
+#import "MXScrollHeader.h"
 #import "MXPageControl.h"
 @class MXImageScrollView;
-
+@class MXImageView;
 @protocol MXScrollViewDelegate <NSObject>
 
 @optional
@@ -49,9 +49,6 @@
 /**是否显示切换动画 default is no*/
 @property (nonatomic, assign) BOOL showAnimotion;
 
-/**是否显示pageControl 默认为yes*/
-@property (nonatomic, assign) BOOL showPageIndicator;
-
 /**滑动间隔 default is 3s*/
 @property (nonatomic, assign) float scrollIntervalTime;
 
@@ -67,6 +64,9 @@
 
 /**pageControll分页视图*/
 @property (nonatomic, readonly, strong) MXPageControl *pageControl;
+
+/**是否隐藏pageControl 默认为NO*/
+@property (nonatomic, assign) BOOL hiddenPageControl;
 
 /**预加载视图,须写在设置图片数组之前*/
 @property (nonatomic, strong) UIImage *placeholderImage;
@@ -90,23 +90,27 @@
 /**
  *  普通模式创建一个MXScrollView
  *
- *  @param frame 位置
+ *  @param frame                    位置
+ *  @param downloadImageFunction    下载网络图片方法
  *
  *  @return 实例化对象
  */
-- (instancetype)initWithFrame:(CGRect)frame;
+- (instancetype)initWithFrame:(CGRect)frame
+        downloadImageFunction:(DownloadImageFunction _Nullable)downloadImageFunction;
 
 
 /**
  *  TableView模式(无导航栏需设置hasNavigationBar为NO)
  *
- *  @param frame         位置
- *  @param rootTableView 根TableView
+ *  @param frame                    位置
+ *  @param rootTableView            根TableView
+ *  @param downloadImageFunction    下载网络图片方法
  *
  *  @return 实例化对象
  */
 - (instancetype)initWithFrame:(CGRect)frame
-                rootTableView:(UITableView *)rootTableView;
+                rootTableView:(UITableView *)rootTableView
+        downloadImageFunction:(DownloadImageFunction _Nullable)downloadImageFunction;
 
 /**
  *  拉伸图片 加载在tableView上面时，须在scrollViewDidScroll代理中实现本方法方可拉伸图片

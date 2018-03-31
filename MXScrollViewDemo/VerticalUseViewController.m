@@ -51,7 +51,8 @@
     scroll2 = [[MXImageScrollView alloc] initWithFrame:CGRectMake(30,
                                                                   CGRectGetMaxY(scroll1.frame) + 50,
                                                                   scrollViewWidth,
-                                                                  scrollViewHeight)];
+                                                                  scrollViewHeight)
+                                 downloadImageFunction:nil];
     scroll2.scrollDirection = kMXScrollViewDirectionVertical;
     scroll2.verticalDirection = kMXVerticalDirectionFromBottom;
     scroll2.images = @[[UIImage imageNamed:@"picture_1"],

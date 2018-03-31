@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MXEnumHeader.h"
+#import "MXScrollHeader.h"
 
 @interface MXPageControl : UIPageControl
 

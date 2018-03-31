@@ -46,7 +46,8 @@
         MXImageScrollView *scroll = [[MXImageScrollView alloc] initWithFrame:CGRectMake(scrollViewX,
                                                                                         scrollViewY,
                                                                                         scrollViewWidth,
-                                                                                        scrollViewHeight)];
+                                                                                        scrollViewHeight)
+                                                       downloadImageFunction:nil];
         scroll.showAnimotion = YES;
         scroll.animotionType = kMXTransitionRandom;
         scroll.animotionDirection = kMXTransitionDirectionRandom;

@@ -45,7 +45,8 @@ static NSString *const tableViewCellIdentifer = @"tableViewCellIdentifer";
                                                                  0,
                                                                  Screen_Width,
                                                                  scrollViewHeight)
-                                        rootTableView:tableView];
+                                        rootTableView:tableView
+                                downloadImageFunction:nil];
     scroll.delegate = self;
     scroll.images = @[[UIImage imageNamed:@"picture_1"],
                       [UIImage imageNamed:@"picture_2"],

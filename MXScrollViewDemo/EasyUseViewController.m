@@ -34,7 +34,8 @@ static CGFloat const scrollViewHeight = 200;
     scroll = [[MXImageScrollView alloc] initWithFrame:CGRectMake((CGRectGetWidth(Screen_Width) - scrollViewWidth) / 2,
                                                                  scrollViewHeight,
                                                                  scrollViewWidth,
-                                                                 scrollViewHeight)];
+                                                                 scrollViewHeight)
+                                downloadImageFunction:nil];
     scroll.images = @[[UIImage imageNamed:@"picture_1"],
                       [UIImage imageNamed:@"picture_2"],
                       [UIImage imageNamed:@"picture_3"]];

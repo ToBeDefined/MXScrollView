@@ -20,14 +20,17 @@
 @property (nonatomic, strong) UIImageView *currentView;
 @property (nonatomic, assign) CGFloat scrollViewWidth;
 @property (nonatomic, assign) CGFloat scrollViewHeight;
+@property (nonatomic, copy) DownloadImageFunction downloadImageFunction;
 
 @end
 
 @implementation MXImageScrollView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame
+        downloadImageFunction:(DownloadImageFunction)downloadImageFunction {
     self = [super initWithFrame:frame];
     if (self) {
+        _downloadImageFunction = [downloadImageFunction copy];
         _scrollViewHeight = CGRectGetHeight(frame);
         _scrollViewWidth  = CGRectGetWidth(frame);
         [self initBaseData];
@@ -36,13 +39,15 @@
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
-                rootTableView:(UITableView *)rootTableView {
+                rootTableView:(UITableView *)rootTableView
+        downloadImageFunction:(DownloadImageFunction _Nullable)downloadImageFunction {
     NSParameterAssert(rootTableView);
     self = [self initWithFrame:CGRectMake(frame.origin.x,
                                           -CGRectGetHeight(frame),
                                           CGRectGetWidth(frame),
                                           CGRectGetHeight(frame))];
     if (self) {
+        _downloadImageFunction = [downloadImageFunction copy];
         _rootTableView = rootTableView;
         _rootTableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(frame), 0, 0, 0);
         [_rootTableView addSubview:self];
@@ -133,8 +138,8 @@
     if (_originViews) [self setImages:_originViews];
 }
 
--  (void)setShowPageIndicator:(BOOL)showPageIndicator {
-    _pageControl.hidden = showPageIndicator;
+-  (void)setHiddenPageControl:(BOOL)hiddenPageControl {
+    _pageControl.hidden = hiddenPageControl;
 }
 
 - (void)setScrollIntervalTime:(float)scrollIntervalTime {
@@ -270,7 +275,8 @@
     MXImageView *scrollImage = [[MXImageView alloc] initWithFrame:viewFrame
                                                          hasTable:_rootTableView != nil];
     [scrollImage setImageWithSource:object
-                   placeholderImage:_placeholderImage];
+                   placeholderImage:_placeholderImage
+              downloadImageFunction:self.downloadImageFunction];
     [scrollImage setDidTapImageViewHandle:^{
         if (_tapImageHandle) _tapImageHandle(imageIndex);
     }];
