@@ -23,6 +23,10 @@ static CGFloat const scrollViewHeight = 200;
 
 @implementation DownloadImgaeViewController
 
+- (void)dealloc {
+    NSLog(@"DownloadImgaeViewController dealloc");
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [scroll invalidateTimer];

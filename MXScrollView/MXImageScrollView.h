@@ -1,8 +1,9 @@
 #import <UIKit/UIKit.h>
 #import "MXScrollHeader.h"
 #import "MXPageControl.h"
+
 @class MXImageScrollView;
-@class MXImageView;
+
 @protocol MXScrollViewDelegate <NSObject>
 
 @optional

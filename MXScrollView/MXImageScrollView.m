@@ -279,7 +279,7 @@
                    placeholderImage:_placeholderImage
               downloadImageFunction:self.downloadImageFunction];
     [scrollImage setDidTapImageViewHandle:^{
-        if (_tapImageHandle) _tapImageHandle(imageIndex);
+        if (self->_tapImageHandle) self->_tapImageHandle(imageIndex);
     }];
     [self implementationDelegateMethod:scrollImage index:imageIndex];
     [_contentViews addObject:scrollImage];
@@ -324,43 +324,43 @@
                               0);
     // 设置回调
     dispatch_source_set_event_handler(_timer, ^{
-        if (_contents.count == 0) return;
-        if (_rootTableView) {
-            CGRect orginFrame = CGRectMake(0, -_scrollViewHeight, _scrollViewWidth, _scrollViewHeight);
+        if (self->_contents.count == 0) return;
+        if (self->_rootTableView) {
+            CGRect orginFrame = CGRectMake(0, -self->_scrollViewHeight, self->_scrollViewWidth, self->_scrollViewHeight);
             [self resetSubViewsFrame:orginFrame];
-            CGFloat navgationBarHeight = _hasNavigationBar ? kMXNavigationBarHeight : 0;
-            if (_rootTableView.contentOffset.y < -_scrollViewHeight - navgationBarHeight) {
-                _rootTableView.contentOffset = CGPointMake(0, -_scrollViewHeight - navgationBarHeight);
-                _rootTableView.scrollEnabled = NO;
+            CGFloat navgationBarHeight = self->_hasNavigationBar ? kMXNavigationBarHeight : 0;
+            if (self->_rootTableView.contentOffset.y < -self->_scrollViewHeight - navgationBarHeight) {
+                self->_rootTableView.contentOffset = CGPointMake(0, -self->_scrollViewHeight - navgationBarHeight);
+                self->_rootTableView.scrollEnabled = NO;
             }
         }
         CGPoint offset = CGPointZero;
-        switch (_scrollDirection) {
+        switch (self->_scrollDirection) {
             case kMXScrollViewDirectionHorizontal:
-                offset = CGPointMake(_rootScrollView.contentOffset.x + _scrollViewWidth, 0);
+                offset = CGPointMake(self->_rootScrollView.contentOffset.x + self->_scrollViewWidth, 0);
                 break;
             case kMXScrollViewDirectionVertical: {
-                switch (_verticalDirection) {
+                switch (self->_verticalDirection) {
                     case kMXVerticalDirectionFromTop:
-                        offset = CGPointMake(0, _rootScrollView.contentOffset.y - _scrollViewHeight);
+                        offset = CGPointMake(0, self->_rootScrollView.contentOffset.y - self->_scrollViewHeight);
                         break;
                     case kMXVerticalDirectionFromBottom:
-                        offset = CGPointMake(0, _rootScrollView.contentOffset.y + _scrollViewHeight);
+                        offset = CGPointMake(0, self->_rootScrollView.contentOffset.y + self->_scrollViewHeight);
                         break;
                 }
             }
             default:
                 break;
         }
-        if (_showAnimotion) {
-            _rootScrollView.contentOffset = offset;
-            [_rootScrollView.layer addAnimation:_animation forKey:nil];
+        if (self->_showAnimotion) {
+            self->_rootScrollView.contentOffset = offset;
+            [self->_rootScrollView.layer addAnimation:self->_animation forKey:nil];
         } else {
-            [UIView animateWithDuration:_animotionDuringTime animations:^{
-                _rootScrollView.contentOffset = offset;
+            [UIView animateWithDuration:self->_animotionDuringTime animations:^{
+                self->_rootScrollView.contentOffset = offset;
             }];
         }
-        [self scrollViewDidEndDecelerating:_rootScrollView];
+        [self scrollViewDidEndDecelerating:self->_rootScrollView];
     });
     
     // 启动定时器
