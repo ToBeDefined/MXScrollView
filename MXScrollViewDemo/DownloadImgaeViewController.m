@@ -8,7 +8,7 @@
 
 #import "DownloadImgaeViewController.h"
 #import "MXScrollView.h"
-#import <SDWebImage/SDWebImageDownloader.h>
+#import <SDWebImage/SDWebImage-umbrella.h>
 
 #define Screen_Width [UIScreen mainScreen].bounds
 static CGFloat const scrollViewWidth = 300;
@@ -36,13 +36,13 @@ static CGFloat const scrollViewHeight = 200;
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    __weak typeof(self) weakSelf = self;
     scroll = [[MXImageScrollView alloc] initWithFrame:CGRectMake((CGRectGetWidth(Screen_Width) - scrollViewWidth) / 2,
                                                                  scrollViewHeight,
                                                                  scrollViewWidth,
                                                                  scrollViewHeight)
                                 downloadImageFunction:^(MXImageView *imageView, NSURL *url) {
-                                    [weakSelf downloadImageToImageView:imageView withURL:url];
+                                    [[SDWebImageDownloader sharedDownloader] setValue:@"someHeaderValue" forHTTPHeaderField:@"headerKey"];
+                                    [imageView sd_setImageWithURL:url];
                                 }];
     scroll.pageControl.pageIndicatorTintColor = [UIColor blackColor];
     scroll.pageControl.currentPageIndicatorTintColor = [UIColor orangeColor];
@@ -56,35 +56,14 @@ static CGFloat const scrollViewHeight = 200;
     [scroll setTapImageHandle:^(NSInteger index) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                             message:[NSString
-                                                                     stringWithFormat:@"你点击了%ld张图片", index]
+                                                                     stringWithFormat:@"你点击了%ld张图片", (long)index]
                                                            delegate:nil
                                                   cancelButtonTitle:nil
                                                   otherButtonTitles:@"Ok", nil];
         [alertView show];
     }];
     
-    [scroll setDidScrollImageViewAtIndexHandle:^(NSInteger index) {
-        NSLog(@"滑动到了第%ld页", index);
-    }];
-    
     [self.view addSubview:scroll];
-}
-
-- (void)downloadImageToImageView:(UIImageView *)imageView
-                         withURL:(NSURL *)url  {
-    [[SDWebImageDownloader sharedDownloader] setValue:@"someHeaderValue" forHTTPHeaderField:@"headerKey"];
-    [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:url
-                                                          options:SDWebImageDownloaderIgnoreCachedResponse
-                                                         progress:nil
-                                                        completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                if (image) {
-                                                                    imageView.image = image;
-                                                                } else {
-                                                                    NSLog(@"Network ERROR");
-                                                                }
-                                                            });
-                                                        }];
 }
 
 @end

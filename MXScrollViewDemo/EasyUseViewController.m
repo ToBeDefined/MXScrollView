@@ -42,7 +42,7 @@ static CGFloat const scrollViewHeight = 200;
     [scroll setTapImageHandle:^(NSInteger index) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                             message:[NSString
-                                                                     stringWithFormat:@"你点击了%ld张图片", index]
+                                                                     stringWithFormat:@"你点击了%ld张图片", (long)index]
                                                            delegate:nil
                                                   cancelButtonTitle:nil
                                                   otherButtonTitles:@"Ok", nil];
@@ -50,27 +50,10 @@ static CGFloat const scrollViewHeight = 200;
     }];
     
     [scroll setDidScrollImageViewAtIndexHandle:^(NSInteger index) {
-        NSLog(@"滑动到了第%ld页", index);
+        NSLog(@"滑动到了第%ld页", (long)index);
     }];
     
     [self.view addSubview:scroll];
 }
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

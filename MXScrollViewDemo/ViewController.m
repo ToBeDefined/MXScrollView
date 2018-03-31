@@ -11,13 +11,14 @@
 #import "TableUseViewController.h"
 #import "VerticalUseViewController.h"
 #import "AnimationViewController.h"
+#import "DownloadImgaeViewController.h"
 
 static NSString *const tableIdentifier = @"TableViewCell";
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, copy) NSArray <NSString *> *dataArray;
+@property (nonatomic, copy) NSArray <Class> *dataArray;
 
 @end
 
@@ -34,11 +35,11 @@ static NSString *const tableIdentifier = @"TableViewCell";
                                                                       NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
     self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
     
-    self.dataArray = @[@"EasyUseViewController",
-                       @"TableUseViewController",
-                       @"VerticalUseViewController",
-                       @"AnimationViewController",
-                       @"DownloadImgaeViewController"];
+    self.dataArray = @[[EasyUseViewController class],
+                       [TableUseViewController class],
+                       [VerticalUseViewController class],
+                       [AnimationViewController class],
+                       [DownloadImgaeViewController class]];
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:tableIdentifier];
@@ -55,13 +56,13 @@ static NSString *const tableIdentifier = @"TableViewCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = self.dataArray[indexPath.row];
+    cell.textLabel.text = NSStringFromClass(self.dataArray[indexPath.row]);
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Class vcClass = NSClassFromString(self.dataArray[indexPath.row]);
+    Class vcClass = self.dataArray[indexPath.row];
     UIViewController *viewController = [[vcClass alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];
 }

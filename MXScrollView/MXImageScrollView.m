@@ -26,6 +26,20 @@
 
 @implementation MXImageScrollView
 
+- (instancetype)init {
+    // 在Debug模式下，提示开发修改使用 `-initWithFrame:downloadImageFunction:` 创建
+    NSAssert(NO, @"use -initWithFrame:downloadImageFunction:");
+    return [self initWithFrame:CGRectZero
+         downloadImageFunction:nil];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    // 在Debug模式下，提示开发修改使用 `-initWithFrame:downloadImageFunction:` 创建
+    NSAssert(NO, @"use -initWithFrame:downloadImageFunction:");
+    return [self initWithFrame:frame
+         downloadImageFunction:nil];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
         downloadImageFunction:(DownloadImageFunction)downloadImageFunction {
     self = [super initWithFrame:frame];
@@ -45,9 +59,9 @@
     self = [self initWithFrame:CGRectMake(frame.origin.x,
                                           -CGRectGetHeight(frame),
                                           CGRectGetWidth(frame),
-                                          CGRectGetHeight(frame))];
+                                          CGRectGetHeight(frame))
+         downloadImageFunction:downloadImageFunction];
     if (self) {
-        _downloadImageFunction = [downloadImageFunction copy];
         _rootTableView = rootTableView;
         _rootTableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(frame), 0, 0, 0);
         [_rootTableView addSubview:self];
