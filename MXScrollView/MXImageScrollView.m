@@ -27,15 +27,11 @@
 @implementation MXImageScrollView
 
 - (instancetype)init {
-    // 在Debug模式下，提示开发修改使用 `-initWithFrame:downloadImageFunction:` 创建
-    NSAssert(NO, @"use -initWithFrame:downloadImageFunction:");
     return [self initWithFrame:CGRectZero
          downloadImageFunction:nil];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    // 在Debug模式下，提示开发修改使用 `-initWithFrame:downloadImageFunction:` 创建
-    NSAssert(NO, @"use -initWithFrame:downloadImageFunction:");
     return [self initWithFrame:frame
          downloadImageFunction:nil];
 }

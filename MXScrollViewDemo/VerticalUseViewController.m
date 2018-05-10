@@ -39,8 +39,7 @@
     scroll1 = [[MXImageScrollView alloc] initWithFrame:CGRectMake(30,
                                                                  50 + 64,
                                                                  scrollViewWidth,
-                                                                 scrollViewHeight)
-                                 downloadImageFunction:nil];
+                                                                 scrollViewHeight)];
     scroll1.scrollDirection = kMXScrollViewDirectionVertical;
     scroll1.pageControlPosition = kMXPageControlPositionLeft;
     scroll1.images = @[[UIImage imageNamed:@"picture_1"],
