@@ -59,13 +59,21 @@ github "cwxatlm/MXScrollView"
 * `Targets->Build Phases->Copy Bundle Resources`.
 * `#imprort "MXScrollView.h"`
 
+
 有两种使用方式  you can use it in two ways
+
 ### 1.像普通控件一样使用它  use it looks like normal View
 
 
-####Objective-C
-```objective-c
-MXImageScrollView *scroll = [[MXIMageScrollView alloc] initWithFrame:CGRectMake(x, y, scrollWidth, scrollHeight)];
+#### Objective-C
+
+```objc
+MXImageScrollView *scroll = [[MXIMageScrollView alloc] initWithFrame:CGRectMake(x, y, scrollWidth, scrollHeight)
+                                               downloadImageFunction:^(MXImageView *imageView, NSURL *url) {
+                                                   // 以SDWebImage为例，你可以使用自己的图片下载工具
+                                                   [[SDWebImageDownloader sharedDownloader] setValue:@"someHeaderValue" forHTTPHeaderField:@"headerKey"];
+                                                   [imageView sd_setImageWithURL:url];
+                                               }];
         //数组支持传入image或imageUrl       support image or imageUrl
 scroll.images =  @[
                   [UIImage imageNamed:@"picture_one"],
@@ -87,17 +95,22 @@ scroll.animotionDirection = kMXTransitionDirectionRandom; //支持多方向 supp
 }
 ```
 
-### 2.加载在tableView上   load it in tableView
+### 2.加载在tableView上 load it in tableView
 
 此时必须写为全局变量
 
-####Objective-C
-```objective-c
+#### Objective-C
+```objc
 _scroll = [[MXImageScrollView alloc] initWithFrame:CGRectMake(0,
                                                          0,
                                                          CGRectGetWidth(self.view.bounds),
                                                          MXScrollViewHeight)
-                                rootTableView:_tableView];
+                                rootTableView:_tableView
+                        downloadImageFunction:^(MXImageView *imageView, NSURL *url) {
+                            // 以SDWebImage为例，你可以使用自己的图片下载工具
+                            [[SDWebImageDownloader sharedDownloader] setValue:@"someHeaderValue" forHTTPHeaderField:@"headerKey"];
+                            [imageView sd_setImageWithURL:url];
+                        }];
 _scroll.animotionDirection = kMXTransitionDirectionRandom;
 _scroll.animotionType = kMXTransitionRandom;
 _scroll.pageControlPosition = kMXPageControlPositionCenter; //更改pageControl显示的位置
@@ -124,6 +137,7 @@ _scroll.images = @[
 ```
 
 ### delegate
+
 
 ```
 
