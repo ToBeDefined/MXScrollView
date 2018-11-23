@@ -228,8 +228,28 @@
         default:
             break;
     }
-    _pageControl.currentPage = _loopScroll ? page - 1 : page;
-    _currentView = _contentViews[page];
+    
+    // 添加判断防止产生越界
+    if (_loopScroll) {
+        if (_contentViews.count != 0) {
+            page = page % _contentViews.count;
+        } else {
+            page = 0;
+        }
+    } else {
+        if (page >= _contentViews.count) {
+            page = _contentViews.count - 1;
+        }
+        if (page < 0) {
+            page = 0;
+        }
+    }
+    
+    // 防止 _contentViews 是空数组
+    if (page < _contentViews.count) {
+        _pageControl.currentPage = page;
+        _currentView = _contentViews[page];
+    }
     _rootTableView.scrollEnabled = YES;
     if (_didScrollImageViewAtIndexHandle) _didScrollImageViewAtIndexHandle(_pageControl.currentPage + 1);
 }
